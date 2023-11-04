@@ -19,7 +19,8 @@ config = Config()
 
 class Ballbert_Wake_Word:
     def __init__(self) -> None:
-        
+        self.porcupine = None
+
         self.porcupine_api_key = ""
 
         self.create_pvporcupine()
