@@ -28,6 +28,7 @@ class Ballbert_Wake_Word:
 
     def create_pvporcupine(self):
         def get_porcupine_api_key(key):
+            print("set", key)
             self.porcupine_api_key = key
             
         assistant.websocket_client.add_route(get_porcupine_api_key)
