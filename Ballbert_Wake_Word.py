@@ -22,7 +22,7 @@ class Ballbert_Wake_Word:
         
         self.porcupine_api_key = ""
 
-        self.porcupine = self.create_pvporcupine()
+        self.create_pvporcupine()
 
         event_handler.on("Ready", self.start)
 
@@ -30,33 +30,34 @@ class Ballbert_Wake_Word:
         def get_porcupine_api_key(key):
             print("set", key)
             self.porcupine_api_key = key
+            try:
+                system = platform.system()
+
+                if system == "Windows":
+                    path = "./Skills/Ballbert_Wake_Word/Ball-Bert_en_windows_v2_2_0.ppn"
+                elif system == "Darwin":
+                    path = "./Skills/Ballbert_Wake_Word/Ball-Bert_en_mac_v2_2_0.ppn"
+                elif system == "Linux":
+                    path = "./Skills/Ballbert_Wake_Word/Ball-Bert_en_raspberry-pi_v2_2_0.ppn"
+                else:
+                    raise Exception("Invalid System")
+
+                self.porcupine = pvporcupine.create(
+                    access_key=self.porcupine_api_key,
+                    keyword_paths=[path],
+                )
+            except Exception as e:
+                event_handler.trigger("Error", e)
             
         assistant.websocket_client.add_route(get_porcupine_api_key)
         assistant.websocket_client.send_message("get_porcupine_api_key")
-        
-        while not self.porcupine_api_key :
-            print(self.porcupine_api_key)
             
-        try:
-            system = platform.system()
 
-            if system == "Windows":
-                path = "./Skills/Ballbert_Wake_Word/Ball-Bert_en_windows_v2_2_0.ppn"
-            elif system == "Darwin":
-                path = "./Skills/Ballbert_Wake_Word/Ball-Bert_en_mac_v2_2_0.ppn"
-            elif system == "Linux":
-                path = "./Skills/Ballbert_Wake_Word/Ball-Bert_en_raspberry-pi_v2_2_0.ppn"
-            else:
-                raise Exception("Invalid System")
-
-            return pvporcupine.create(
-                access_key=self.porcupine_api_key,
-                keyword_paths=[path],
-            )
-        except Exception as e:
-            event_handler.trigger("Error", e)
 
     def start(self):
+        if not self.porcupine:
+            print("no pork")
+            return
         mic = sr.Microphone(device_index=2)
         recognizer = sr.Recognizer()
         recognizer.energy_threshold = 5000
