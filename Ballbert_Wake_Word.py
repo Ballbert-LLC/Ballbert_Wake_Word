@@ -34,9 +34,7 @@ class Ballbert_Wake_Word:
         assistant.websocket_client.add_route(get_porcupine_api_key)
         assistant.websocket_client.send_message("get_porcupine_api_key")
         
-        while not self.porcupine_api_key:
-            print("waiting")
-            time.sleep(1)
+        time.sleep(2);
         
         try:
             system = platform.system()
