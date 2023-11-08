@@ -1,0 +1,4 @@
+pvporcupine
+SpeechRecognition
+pvrecorder
+soxr
