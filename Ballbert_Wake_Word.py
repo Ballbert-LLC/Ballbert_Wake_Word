@@ -58,6 +58,8 @@ class Ballbert_Wake_Word:
     def start(self):
         if not self.porcupine:
             print("no pork")
+            self.create_pvporcupine()
+
             return
         mic = sr.Microphone(device_index=2)
         recognizer = sr.Recognizer()
