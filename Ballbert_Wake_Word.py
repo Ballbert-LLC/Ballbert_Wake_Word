@@ -6,7 +6,7 @@ from pvrecorder import PvRecorder
 import threading
 import numpy as np
 import soxr
-
+import zlib
 from Config import Config
 
 from Event_Handler import event_handler
