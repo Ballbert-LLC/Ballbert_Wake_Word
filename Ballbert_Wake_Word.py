@@ -96,7 +96,6 @@ class Ballbert_Wake_Word:
                 if keyword_index >= 0:
                     try:
                         print("keyword")
-                        e        #Event Routes
                         print("Keyword")
             
                         t= threading.Thread(target=self.handle_keyword, args=(source,))
