@@ -3,7 +3,7 @@ import time
 import pvporcupine
 import speech_recognition as sr
 from pvrecorder import PvRecorder
-
+import threading
 import numpy as np
 import soxr
 
