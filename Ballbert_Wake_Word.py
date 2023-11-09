@@ -54,7 +54,25 @@ class Ballbert_Wake_Word:
         assistant.websocket_client.send_message("get_porcupine_api_key")
             
 
+    def handle_keyword(self, source):
+        print("Keyword Detected")
 
+        audio_data = self.recogniser.listen(source)
+        
+        # Compress binary audio data using zlib
+        compressed_audio_data = zlib.compress(audio_data.frame_data)
+
+        # Convert compressed data to base64-encoded string
+        base64_compressed_audio_data = base64.b64encode(compressed_audio_data).decode(
+            "utf-8"
+        )
+
+        assistant.websocket_client.send_message(
+            "handle_audio",
+            audio_data=base64_compressed_audio_data,
+            sample_rate=audio_data.sample_rate,
+            sample_width=audio_data.sample_width,
+        )
     def start(self):
         if not self.porcupine:
             print("no pork")
@@ -78,6 +96,11 @@ class Ballbert_Wake_Word:
                 if keyword_index >= 0:
                     try:
                         print("keyword")
-                        event_handler.trigger("Keyword", source)
+                        e        #Event Routes
+                        print("Keyword")
+            
+                        t= threading.Thread(target=self.handle_keyword, args=(source,))
+                        t.start()
+                                
                     except Exception as e:
                         event_handler.trigger("Error", e)
