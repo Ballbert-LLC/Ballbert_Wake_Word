@@ -7,6 +7,8 @@ import threading
 import numpy as np
 import soxr
 import zlib
+
+import base64
 from Config import Config
 
 from Event_Handler import event_handler
