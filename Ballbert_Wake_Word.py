@@ -61,7 +61,7 @@ class Ballbert_Wake_Word:
             self.create_pvporcupine()
 
             return
-        mic = sr.Microphone(device_index=2)
+        mic = sr.Microphone(device_index=1)
         recognizer = sr.Recognizer()
         recognizer.energy_threshold = 5000
 
