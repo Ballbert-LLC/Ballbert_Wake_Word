@@ -22,6 +22,7 @@ class Ballbert_Wake_Word:
         self.porcupine = None
 
         self.porcupine_api_key = ""
+        self.recogniser = sr.Recognizer()
 
         self.create_pvporcupine()
 
