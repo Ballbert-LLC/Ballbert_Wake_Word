@@ -83,9 +83,13 @@ class Ballbert_Wake_Word:
                         print("keyword")
                         print("Keyword")
             
-                        print("Keyword Detected")
+                        print("Keyword Detected / listen")
                 
                         audio_data = self.recogniser.listen(source)
+                        
+                        print("done listen")
+                        
+                        event_handler.trigger("Keyword")
                         
                         # Compress binary audio data using zlib
                         compressed_audio_data = zlib.compress(audio_data.frame_data)
